@@ -1,6 +1,6 @@
 name: kubectl-aws-eks
 description: "This action provides support for checking application status for fiaas applications using kubectl in Github Actions."
-author: 'Birgir Stefansson
+author: 'Birgir Stefansson'
 outputs:
   status:
     description: 'The fiaas application status'
