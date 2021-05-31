@@ -15,7 +15,7 @@ do
     echo "::set-output name=kubectl-output::$STATUS"
     return 0
   fi
-  ((i++))
+  i=$((i+1))
   sleep 30
 done
 echo "::set-output name=kubectl-output::$STATUS"
