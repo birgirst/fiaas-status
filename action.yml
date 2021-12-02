@@ -1,9 +1,21 @@
 name: kubectl-aws-eks
 description: "This action provides support for checking application status for fiaas applications using kubectl in Github Actions."
 author: 'Birgir Stefansson'
+inputs:
+  interval:
+    description: 'Time between status checks'
+    required: false
+    default: 30
+  status-checks:
+    description: 'Number of checks before we assume failed'
+    required: false
+    default: 5
 outputs:
   status:
     description: 'The fiaas application status'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.interval }}
+    - ${{ inputs.status-checks }}
