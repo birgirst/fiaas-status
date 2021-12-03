@@ -11,7 +11,7 @@ inputs:
     required: false
     default: '5'
   args:
-    description: 'Application ID and potentially other arguments needed'
+    description: 'Deployment id to check'
     required: true
 outputs:
   status:
