@@ -22,3 +22,4 @@ runs:
   args:
     - ${{ inputs.interval }}
     - ${{ inputs.status-checks }}
+    - ${{ inputs.args }}
