@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 interval=$1
 checks=$2
@@ -35,6 +35,7 @@ do
     return 0
   fi
   i=$((i+1))
+  echo "Not confirmed yet, trying again in $interval"
   sleep $interval
 done
 echo "::set-output name=kubectl-output::$STATUS"
