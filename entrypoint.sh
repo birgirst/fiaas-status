@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 interval=$1
 checks=$2
@@ -12,8 +12,8 @@ echo $checks
 echo $deployment_id
 echo $kubectl_version
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$kubectl_version/bin/linux/amd64/kubectl
-chmod +x ./kubectl && mv ./kubectl /usr/bin/kubectl 
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v$kubectl_version/bin/linux/amd64/kubectl
+chmod +x ./kubectl && mv ./kubectl /usr/bin/kubectl
 
 # Extract the base64 encoded config data and write this to the KUBECONFIG
 echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
