@@ -14,7 +14,7 @@ echo $deployment_id
 echo $kubectl_version
 
 if [ -n "$kubectl_version" ]; then
-  if [ $kubectl_version != $installed_kubectl_version ] then
+  if [ $kubectl_version != $installed_kubectl_version ]; then
     echo "Installing kubectl $kubectl_version"
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$kubectl_version/bin/linux/amd64/kubectl
     chmod +x ./kubectl && mv ./kubectl /usr/bin/kubectl
