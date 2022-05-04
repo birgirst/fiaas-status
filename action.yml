@@ -16,7 +16,6 @@ inputs:
   kubectl_version:
     description: "Set version of kubectl"
     required: false
-    default: "1.21.12"
 outputs:
   status:
     description: "The fiaas application status"
