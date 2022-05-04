@@ -6,6 +6,10 @@ interval=$1
 checks=$2
 deployment_id=$3
 
+echo $interval
+echo $checks
+echo $deployment_id
+
 # Extract the base64 encoded config data and write this to the KUBECONFIG
 echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
