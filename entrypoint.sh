@@ -48,7 +48,7 @@ do
     return 1
   fi
   i=$((i+1))
-  echo "Application deployment still in status RUNNING, trying again in ${$interval}s"
+  echo "Application deployment still in status RUNNING, trying again in ${interval}s"
   sleep $interval
 done
 echo "Application status check timed out"
