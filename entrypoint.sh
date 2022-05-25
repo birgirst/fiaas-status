@@ -24,19 +24,33 @@ fi
 # Extract the base64 encoded config data and write this to the KUBECONFIG
 echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
+
+finish()
+{
+  echo $APPLICATION_STATUS | jq -r '.items | .[] | .logs'
+  echo "::set-output name=kubectl-output::$STATUS"
+}
+
 i=0
 while [ $i -lt $checks ]
 do
   echo "checking status"
-  STATUS=$(sh -c "kubectl get applicationstatus -lfiaas/deployment_id=$deployment_id -ojson | jq '.items | .[] | .result' | sed 's/\\\"//g'")
+  APPLICATION_STATUS=$(sh -c "kubectl get applicationstatus -lfiaas/deployment_id=$deployment_id -ojson")
+  STATUS=$(echo $APPLICATION_STATUS | jq -r '.items | .[] | .result')
   if [ "SUCCESS" = "$STATUS" ]; then
-    echo "success"
-    echo "::set-output name=kubectl-output::$STATUS"
+    echo "Application deployed successfully"
+    finish
     return 0
   fi
+  if [ "FAILED" = "$STATUS" ]; then
+    echo "Failed to deploy application"
+    finish
+    return 1
+  fi
   i=$((i+1))
-  echo "Not confirmed yet, trying again in $interval"
+  echo "Application deployment still in status RUNNING, trying again in ${interval}s"
   sleep $interval
 done
-echo "::set-output name=kubectl-output::$STATUS"
+echo "Application status check timed out"
+finish
 return 1
