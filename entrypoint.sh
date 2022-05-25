@@ -53,4 +53,4 @@ do
 done
 echo "Application status check timed out"
 finish
-return 0
+return 1
