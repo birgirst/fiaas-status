@@ -27,7 +27,7 @@ export KUBECONFIG=/tmp/config
 
 finish()
 {
-  cat application_status.json | jq -r '.items | .[] | .logs'
+  echo $APPLICATION_STATUS | jq -r '.items | .[] | .logs'
   echo "::set-output name=kubectl-output::$STATUS"
 }
 
@@ -35,8 +35,8 @@ i=0
 while [ $i -lt $checks ]
 do
   echo "checking status"
-  sh -c "kubectl get applicationstatus -lfiaas/deployment_id=$deployment_id -ojson > application_status.json"
-  STATUS=$(cat application_status.json | jq -r '.items | .[] | .result')
+  APPLICATION_STATUS=$(sh -c "kubectl get applicationstatus -lfiaas/deployment_id=$deployment_id -ojson")
+  STATUS=$(echo $APPLICATION_STATUS | jq -r '.items | .[] | .result')
   if [ "SUCCESS" = "$STATUS" ]; then
     echo "Application deployed successfully"
     finish
